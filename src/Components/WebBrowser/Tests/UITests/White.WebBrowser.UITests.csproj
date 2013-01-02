@@ -84,8 +84,8 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="UIAutomationClient">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    <Reference Include="UIAComWrapper">
+      <HintPath>..\..\..\..\..\lib\UIAComWrapper.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -36,11 +37,18 @@ namespace White.Core.ScreenMap
             string fileLocation = FileLocation(initializeOption);
             if (File.Exists(fileLocation))
             {
-                Logger.DebugFormat("[PositionBasedSearch] Loading WindowItemsMap for: {0}, from {1}", initializeOption.Identifier, fileLocation);
-                var windowItemsMap = (WindowItemsMap) CreateFileXStream(fileLocation).FromFile();
-                windowItemsMap.currentWindowPosition = currentWindowPosition;
-                windowItemsMap.loadedFromFile = true;
-                return windowItemsMap;
+                try
+                {
+                    Logger.DebugFormat("[PositionBasedSearch] Loading WindowItemsMap for: {0}, from {1}", initializeOption.Identifier, fileLocation);
+                    var windowItemsMap = (WindowItemsMap)CreateFileXStream(fileLocation).FromFile();
+                    windowItemsMap.currentWindowPosition = currentWindowPosition;
+                    windowItemsMap.loadedFromFile = true;
+                    return windowItemsMap;
+                }
+                catch (Exception)
+                {
+                    Logger.DebugFormat("[PositionBasedSearch] Failed to Load WindowItemsMap for: {0}, from {1}", initializeOption.Identifier, fileLocation);
+                }
             }
 
             Logger.DebugFormat("[PositionBasedSearch] Creating new WindowItemsMap for: {0}", initializeOption.Identifier);
