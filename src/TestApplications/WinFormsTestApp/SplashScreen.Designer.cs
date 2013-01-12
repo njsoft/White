@@ -42,6 +42,7 @@ namespace WinFormsTestApp
             this.MinimizeBox = false;
             this.Name = "SplashScreen";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.UseWaitCursor = true;
             this.ResumeLayout(false);
 

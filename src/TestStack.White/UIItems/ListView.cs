@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Threading;
+using System.Linq;
 using System.Windows.Automation;
 using White.Core.AutomationElementSearch;
 using White.Core.Recording;
@@ -7,7 +7,6 @@ using White.Core.UIItemEvents;
 using White.Core.UIItems.Actions;
 using White.Core.UIItems.ListViewItems;
 using White.Core.UIItems.Scrolling;
-using White.Core.Utility;
 
 namespace White.Core.UIItems
 {
@@ -142,11 +141,7 @@ namespace White.Core.UIItems
         {
             get
             {
-                var items = new List<string>();
-                ListViewRows rows = Rows;
-                foreach (ListViewRow listViewRow in rows)
-                    items.Add(listViewRow.Cells[0].Text);
-                return items;
+                return Rows.Select(listViewRow => listViewRow.Cells[0].Text).ToList();
             }
         }
 

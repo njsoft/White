@@ -44,7 +44,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(552, 257);
             this.Controls.Add(this.treeView1);
-            this.Name = "Form1";
+            this.Name = "FormContainingLargeTree";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.ResumeLayout(false);
 

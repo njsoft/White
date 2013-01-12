@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Automation;
+using White.Core.UIItems;
 
 namespace White.Core.Mappings
 {
@@ -53,7 +55,35 @@ namespace White.Core.Mappings
 
         public virtual ControlDictionaryItem FindBy(Type testControlType, string frameworkId)
         {
-            return Find(controlDictionaryItem => testControlType.IsAssignableFrom(controlDictionaryItem.TestControlType) && (frameworkId == null || Equals(controlDictionaryItem.FrameworkId, frameworkId)));
+            var controlDictionaryItems = this
+                .Where(controlDictionaryItem => IsSameOrFrameworkSpecificImplentation(testControlType, controlDictionaryItem))
+                .ToArray();
+
+            if (controlDictionaryItems.Length == 0)
+                return null;
+
+            if (controlDictionaryItems.Length == 1)
+                return controlDictionaryItems.Single();
+
+            var frameworkMatching = controlDictionaryItems
+                .Where(c=>frameworkId == null || c.FrameworkId == frameworkId)
+                .ToArray();
+
+            if (frameworkMatching.Length > 1)
+            {
+                throw new WhiteException(string.Format("{0} can be mapped to {1} depending on the target framework", 
+                    testControlType.Name,
+                    string.Join(" or ", frameworkMatching.Select(m=>m.ControlType.LocalizedControlType))));
+            }
+
+            return frameworkMatching.SingleOrDefault();
+        }
+
+        private static bool IsSameOrFrameworkSpecificImplentation(Type testControlType, ControlDictionaryItem controlDictionaryItem)
+        {
+            return 
+                testControlType == controlDictionaryItem.TestControlType ||
+                testControlType ==  PlatformSpecificItemAttribute.BaseType(controlDictionaryItem.TestControlType);
         }
 
         public virtual void AddFrameworkSpecificPrimary(ControlType controlType, Type win32Type, Type winformType, Type wpfType, Type silverlightType)

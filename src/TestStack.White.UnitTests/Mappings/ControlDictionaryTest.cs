@@ -53,17 +53,17 @@ namespace White.Core.UnitTests.Mappings
         [Test]
         public void GetControlType()
         {
-            Assert.AreEqual(ControlType.Edit, controlDictionary.GetControlType(typeof (TextBox)));
-            Assert.AreEqual(ControlType.Pane, controlDictionary.GetControlType(typeof (DateTimePicker)));
-            Assert.AreEqual(ControlType.Button, controlDictionary.GetControlType(typeof (Button)));
-            Assert.AreEqual(ControlType.Group, controlDictionary.GetControlType(typeof (GroupBox)));
-            Assert.AreEqual(ControlType.Pane, controlDictionary.GetControlType(typeof (Panel)));
+            Assert.AreEqual(ControlType.Edit, controlDictionary.GetControlType(typeof (TextBox), null));
+            Assert.AreEqual(ControlType.Pane, controlDictionary.GetControlType(typeof(DateTimePicker), null));
+            Assert.AreEqual(ControlType.Button, controlDictionary.GetControlType(typeof(Button), null));
+            Assert.AreEqual(ControlType.Group, controlDictionary.GetControlType(typeof(GroupBox), null));
+            Assert.AreEqual(ControlType.Pane, controlDictionary.GetControlType(typeof(Panel), null));
         }
 
         [Test]
         public void GetControlTypeForAFramework()
         {
-            Assert.AreEqual(ControlType.Edit, controlDictionary.GetControlType(typeof (TextBox)));
+            Assert.AreEqual(ControlType.Edit, controlDictionary.GetControlType(typeof(TextBox), null));
             Assert.AreEqual(ControlType.Menu, controlDictionary.GetControlType(typeof (MenuBar), Constants.WPFFrameworkId));
             Assert.AreEqual(ControlType.MenuBar, controlDictionary.GetControlType(typeof(MenuBar), Constants.WinFormFrameworkId));
         }

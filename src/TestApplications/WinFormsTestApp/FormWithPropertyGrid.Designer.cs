@@ -45,6 +45,7 @@ namespace WinFormsTestApp
             this.ClientSize = new System.Drawing.Size(303, 423);
             this.Controls.Add(this.propertyGrid1);
             this.Name = "FormWithPropertyGrid";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormWithPropertyGrid";
             this.ResumeLayout(false);
 

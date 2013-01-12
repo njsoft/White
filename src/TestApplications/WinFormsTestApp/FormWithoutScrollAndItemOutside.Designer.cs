@@ -46,6 +46,7 @@ namespace WinFormsTestApp
             this.ClientSize = new System.Drawing.Size(257, 98);
             this.Controls.Add(this.listBox1);
             this.Name = "FormWithoutScrollAndItemOutside";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormWithoutScrollAndItemOutside";
             this.ResumeLayout(false);
 

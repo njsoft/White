@@ -48,6 +48,7 @@ namespace WinFormsTestApp
             this.ClientSize = new System.Drawing.Size(292, 273);
             this.Controls.Add(this.ok);
             this.Name = "ModalForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ModalForm";
             this.ResumeLayout(false);
 

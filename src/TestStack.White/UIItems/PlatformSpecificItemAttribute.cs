@@ -15,10 +15,11 @@ namespace White.Core.UIItems
 
         public static Type BaseType(Type type)
         {
+            if (type == null) return null;
             object[] platformSpecificAttributes = type.GetCustomAttributes(typeof (PlatformSpecificItemAttribute), false);
             if (platformSpecificAttributes.Length == 0) return type;
 
-            PlatformSpecificItemAttribute platformSpecificItemAttribute = (PlatformSpecificItemAttribute) platformSpecificAttributes[0];
+            var platformSpecificItemAttribute = (PlatformSpecificItemAttribute) platformSpecificAttributes[0];
             return platformSpecificItemAttribute.referAsType ?? BaseType(type.BaseType);
         }
     }

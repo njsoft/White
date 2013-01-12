@@ -63,6 +63,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.1.0\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.UIAutomationClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\packages\UIAComWrapper.1.0.0.2\lib\net40\Interop.UIAutomationClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.0\lib\net35-full\log4net.dll</HintPath>
@@ -76,13 +82,14 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="UIAComWrapper">
-      <HintPath>..\..\lib\UIAComWrapper.dll</HintPath>
+    <Reference Include="UIAComWrapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\UIAComWrapper.1.0.0.2\lib\net40\UIAComWrapper.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xstream.Core, Version=1.0.2722.20556, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xstream.Core, Version=1.0.3552.35177, Culture=neutral, PublicKeyToken=5a34ce33a538d84f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Xstream.Core.dll</HintPath>
     </Reference>
@@ -95,6 +102,7 @@
     <Compile Include="Bricks\DynamicProxyGenerator.cs" />
     <Compile Include="Bricks\DynamicProxyInterceptors.cs" />
     <Compile Include="Configuration\ConfigurationExtensions.cs" />
+    <Compile Include="FrameworkIds.cs" />
     <Compile Include="Interceptors\IWhiteInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AutomationElementSearch\AutomationElementFinder.cs" />

@@ -10,7 +10,9 @@ namespace White.Core.UIItems.Finders
         public delegate object PropertyValue(AutomationElement automationElement);
 
         //required for xstream
+// ReSharper disable UnusedMember.Local
         private SimpleSearchCondition() {}
+// ReSharper restore UnusedMember.Local
 
         public SimpleSearchCondition(PropertyValue propertyValueDelegate,
                                      AutomationElementProperty automationElementProperty)

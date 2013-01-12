@@ -19,9 +19,6 @@ namespace White.Core.InputDevices
         private static extern uint SendInput(uint numberOfInputs,
                                              ref Input input,
                                              int structSize);
-//        private static extern uint SendInput(uint numberOfInputs,
-//                                             [MarshalAs(UnmanagedType.LPArray, SizeConst = 1)] Input[] input,
-//                                             int structSize);
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetMessageExtraInfo();
@@ -39,11 +36,11 @@ namespace White.Core.InputDevices
         [DllImport("user32.dll")]
         private static extern short GetDoubleClickTime();
 
-        public static Mouse instance = new Mouse();
+        public static Mouse Instance = new Mouse();
         private DateTime lastClickTime = DateTime.Now;
         private readonly short doubleClickTime = GetDoubleClickTime();
         private Point lastClickLocation;
-        private ILog logger = LogManager.GetLogger(typeof(Mouse));
+        private readonly ILog logger = LogManager.GetLogger(typeof(Mouse));
         private const int ExtraMillisecondsBecauseOfBugInWindows = 13;
 
         private Mouse()
@@ -113,6 +110,10 @@ namespace White.Core.InputDevices
                 int timeout = doubleClickTime - DateTime.Now.Subtract(lastClickTime).Milliseconds;
                 if (timeout > 0) Thread.Sleep(timeout + ExtraMillisecondsBecauseOfBugInWindows);
             }
+
+            if (clickLocation.Equals(new Point(0,0)))
+                throw new InvalidOperationException("Probably should not be clicking at 0,0, please report the scenario");
+
             MouseLeftButtonUpAndDown();
             lastClickTime = DateTime.Now;
             lastClickLocation = Location;

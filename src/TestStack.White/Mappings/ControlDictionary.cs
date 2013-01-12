@@ -22,7 +22,6 @@ namespace White.Core.Mappings
 
         private ControlDictionary()
         {
-            items.AddFrameworkSpecificPrimary(ControlType.Edit, typeof(TextBox), typeof(WinFormTextBox), typeof(TextBox), typeof(TextBox));
 
             items.AddWinFormPrimary(typeof (WinFormSlider), ControlType.Slider);
             items.AddWPFPrimary(typeof (WPFSlider), ControlType.Slider);
@@ -36,9 +35,7 @@ namespace White.Core.Mappings
             items.AddPrimary(typeof (Tree), ControlType.Tree);
             items.AddPrimary(typeof (RadioButton), ControlType.RadioButton);
             items.AddPrimary(typeof (Table), ControlType.Table);
-            items.AddPrimary(typeof (MultilineTextBox), ControlType.Document);
             items.AddPrimary(typeof (Tab), ControlType.Tab, true);
-            items.AddPrimary(typeof (ListView), ControlType.DataGrid);
             items.AddPrimary(typeof (ToolStrip), ControlType.ToolBar);
 
             items.AddWin32Primary(typeof (MenuBar), ControlType.MenuBar);
@@ -62,6 +59,17 @@ namespace White.Core.Mappings
             items.AddWPFPrimary(typeof (Image), ControlType.Image);
             items.AddSilverlightPrimary(typeof (Image), ControlType.Image);
             items.AddWin32Primary(typeof (Image), ControlType.Image);
+
+            items.AddWPFPrimary(typeof(ListView), ControlType.DataGrid);
+            items.AddWinFormPrimary(typeof(ListView), ControlType.List);
+            items.AddWin32Primary(typeof(ListView), ControlType.DataGrid);
+            items.AddSilverlightPrimary(typeof(ListView), ControlType.DataGrid);
+
+            items.AddFrameworkSpecificPrimary(ControlType.Edit, typeof(TextBox), typeof(WinFormTextBox), typeof(TextBox), typeof(TextBox));
+            items.AddWPFPrimary(typeof(MultilineTextBox), ControlType.Document);
+            items.AddWin32Primary(typeof(MultilineTextBox), ControlType.Document);
+            //items.AddWinFormPrimary(typeof(MultilineTextBox), );
+            items.AddSilverlightPrimary(typeof(MultilineTextBox), ControlType.Document);
 
             items.AddSecondary(typeof (TableRowHeader), ControlType.Header);
             items.AddSecondary(typeof (TabPage), ControlType.TabItem, true);
@@ -106,29 +114,25 @@ namespace White.Core.Mappings
             return items.FindBy(testControlType, frameworkId).ControlType;
         }
 
-        public virtual ControlType GetControlType(Type testControlType)
-        {
-            return items.FindBy(testControlType, null).ControlType;
-        }
-
         public virtual Type GetTestControlType(ControlType controlType, string frameWorkId, bool isNativeControl)
         {
-            ControlDictionaryItem dictionaryItem = items.Find(controlDictionaryItem =>
-                                                                  {
-                                                                      string itemFrameworkId = controlDictionaryItem.FrameworkId;
-                                                                      bool controlTypeMatched = controlDictionaryItem.ControlType.Equals(controlType);
+            ControlDictionaryItem dictionaryItem = items.Find(
+                controlDictionaryItem =>
+                    {
+                        string itemFrameworkId = controlDictionaryItem.FrameworkId;
+                        bool controlTypeMatched = controlDictionaryItem.ControlType.Equals(controlType);
 
-                                                                      if (!controlTypeMatched) return false;
-                                                                      if (itemFrameworkId == null) return true;
-                                                                      if (string.IsNullOrEmpty(frameWorkId))
-                                                                      {
-                                                                          if (Equals(itemFrameworkId, Constants.Win32FrameworkId) && isNativeControl)
-                                                                              return true;
-                                                                          if (Equals(itemFrameworkId, Constants.WPFFrameworkId) && !isNativeControl)
-                                                                              return true;
-                                                                      }
-                                                                      return Equals(frameWorkId, itemFrameworkId);
-                                                                  });
+                        if (!controlTypeMatched) return false;
+                        if (itemFrameworkId == null) return true;
+                        if (string.IsNullOrEmpty(frameWorkId))
+                        {
+                            if (Equals(itemFrameworkId, Constants.Win32FrameworkId) && isNativeControl)
+                                return true;
+                            if (Equals(itemFrameworkId, Constants.WPFFrameworkId) && !isNativeControl)
+                                return true;
+                        }
+                        return Equals(frameWorkId, itemFrameworkId);
+                    });
             if (dictionaryItem == null)
             {
                 throw new ControlDictionaryException(string.Format("Could not find TestControl for ControlType={0} and FrameworkId:{1}",

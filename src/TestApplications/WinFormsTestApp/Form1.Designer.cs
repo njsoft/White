@@ -1079,6 +1079,7 @@ namespace WinFormsTestApp
             this.Controls.Add(this.buton);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.listBoxPopupMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.people)).EndInit();

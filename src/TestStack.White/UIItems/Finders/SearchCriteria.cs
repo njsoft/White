@@ -87,9 +87,15 @@ namespace White.Core.UIItems.Finders
             return new SearchCriteria(SearchConditionFactory.CreateForNativeProperty(automationProperty, value));
         }
 
-        public static SearchCriteria ByControlType(Type testControlType)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="testControlType"></param>
+        /// <param name="frameworkId">Available from White.Core.FrameworkIds</param>
+        /// <returns></returns>
+        public static SearchCriteria ByControlType(Type testControlType, string frameworkId = null)
         {
-            var searchCriteria = new SearchCriteria(SearchConditionFactory.CreateForControlType(testControlType));
+            var searchCriteria = new SearchCriteria(SearchConditionFactory.CreateForControlType(testControlType, frameworkId));
             searchCriteria.InferCustomItemType(testControlType);
             return searchCriteria;
         }
@@ -154,10 +160,16 @@ namespace White.Core.UIItems.Finders
             return this;
         }
 
-        public virtual SearchCriteria AndControlType(Type testControlType)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="testControlType"></param>
+        /// <param name="frameworkId">Available from White.Core.FrameworkIds</param>
+        /// <returns></returns>
+        public virtual SearchCriteria AndControlType(Type testControlType, string frameworkId = null)
         {
             InferCustomItemType(testControlType);
-            conditions.Insert(0, SearchConditionFactory.CreateForControlType(testControlType));
+            conditions.Insert(0, SearchConditionFactory.CreateForControlType(testControlType, frameworkId));
             return this;
         }
 
@@ -198,7 +210,7 @@ namespace White.Core.UIItems.Finders
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
-            stringBuilder.Append(conditions.ToString());
+            stringBuilder.Append(conditions);
             return stringBuilder.ToString();
         }
 
@@ -208,28 +220,23 @@ namespace White.Core.UIItems.Finders
             var other = obj as SearchCriteria;
             if (other == null) return false;
 
-            foreach (SearchCondition searchCondition in conditions)
-                if (!other.conditions.Contains(searchCondition)) return false;
+            if (conditions.Any(searchCondition => !other.conditions.Contains(searchCondition)))
+            {
+                return false;
+            }
 
             return indexCondition.Equals(other.indexCondition);
         }
 
         public override int GetHashCode()
         {
-            int hashCode = 0;
-            foreach (SearchCondition condition in conditions)
-                hashCode += condition.GetHashCode();
+            int hashCode = conditions.Sum(condition => condition.GetHashCode());
             return indexCondition.GetHashCode() + hashCode;
         }
 
         public virtual bool AppliesTo(AutomationElement automationElement)
         {
-            foreach (SearchCondition condition in conditions)
-            {
-                if (!condition.AppliesTo(automationElement))
-                    return false;
-            }
-            return true;
+            return conditions.All(condition => condition.AppliesTo(automationElement));
         }
 
         private void InferCustomItemType(Type testControlType)

@@ -27,7 +27,7 @@ namespace White.Core.UIItems
     {
         protected readonly AutomationElement automationElement;
         protected ActionListener actionListener;
-        internal static readonly Mouse mouse = Mouse.instance;
+        internal static readonly Mouse mouse = Mouse.Instance;
         protected readonly PrimaryUIItemFactory factory;
         internal readonly Keyboard keyboard = Keyboard.Instance;
         protected IScrollBars scrollBars;

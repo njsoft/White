@@ -4,12 +4,12 @@ namespace White.Core
 {
     public static class Constants
     {
-        public const string WPFFrameworkId = "WPF";
-        public const string WinFormFrameworkId = "WinForm";
-        public const string Win32FrameworkId = "Win32";
         public const string MissingFrameworkId = "";
-        public const string SWT = "SWT";
-        public const string SilverlightFrameworkId = "Silverlight";
+        public const string WPFFrameworkId = FrameworkIds.WPFFrameworkId;
+        public const string WinFormFrameworkId = FrameworkIds.WinFormFrameworkId;
+        public const string Win32FrameworkId = FrameworkIds.Win32FrameworkId;
+        public const string SWT = FrameworkIds.SWT;
+        public const string SilverlightFrameworkId = FrameworkIds.SilverlightFrameworkId;
 
         public static string BusyMessage
         {
