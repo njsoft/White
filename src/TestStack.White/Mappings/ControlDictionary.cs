@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
 using White.Core.UIItems;
-using White.Core.UIItems.Custom;
 using White.Core.UIItems.ListBoxItems;
 using White.Core.UIItems.MenuItems;
 using White.Core.UIItems.PropertyGridItems;
@@ -61,8 +60,7 @@ namespace White.Core.Mappings
             items.AddFrameworkSpecificPrimary(ControlType.ComboBox, typeof(Win32ComboBox), typeof(WinFormComboBox), typeof(WPFComboBox), typeof(SilverlightComboBox));
             items.AddFrameworkSpecificPrimary(ControlType.StatusBar, typeof(StatusStrip), typeof(StatusStrip), typeof(WPFStatusBar), typeof(WPFStatusBar));
 
-            items.AddWPFPrimary(typeof(CustomUIItem), ControlType.Custom);
-            items.AddWPFPrimary(typeof(Image), ControlType.Image);
+            items.AddWPFPrimary(typeof (Image), ControlType.Image);
             items.AddSilverlightPrimary(typeof (Image), ControlType.Image);
             items.AddWin32Primary(typeof (Image), ControlType.Image);
 
@@ -159,8 +157,8 @@ namespace White.Core.Mappings
                     controlDictionaryItem =>
                     (controlDictionaryItem.IsPrimary && controlDictionaryItem.ControlType.Equals(controlType) &&
                      !controlDictionaryItem.IsIdentifiedByClassName && !controlDictionaryItem.IsIdentifiedByName) ||
-                    (!string.IsNullOrWhiteSpace(className) && className.Contains(controlDictionaryItem.ClassName) && controlDictionaryItem.IsIdentifiedByClassName) ||
-                    (!string.IsNullOrWhiteSpace(name) && name.Equals("PropertyGrid") && controlDictionaryItem.IsIdentifiedByName));
+                    (!string.IsNullOrEmpty(className) && className.Contains(controlDictionaryItem.ClassName) && controlDictionaryItem.IsIdentifiedByClassName) ||
+                    (!string.IsNullOrEmpty(name) && name.Equals("PropertyGrid") && controlDictionaryItem.IsIdentifiedByName));
         }
 
         public virtual bool IsExcluded(ControlType controlType)
